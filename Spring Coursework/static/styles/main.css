@@ -1,0 +1,13 @@
+.navbar {
+    background-color: #24345c;
+    height: 150px;
+}
+
+#navText {
+    padding: 50px;
+    font-size: 20px;
+}
+
+#ads {
+    padding: 10px;
+}

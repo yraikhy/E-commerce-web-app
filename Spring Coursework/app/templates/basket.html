@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}Shopping Basket{% endblock %}
+
+{% block content %}
+  <div class="container">
+    <h1>Shopping Basket</h1>
+    {% if not basket %}
+      <p>Your basket is empty.</p>
+    {% else %}
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Subtotal</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for i in basket %}
+            {% set subtotal = i['price'] * i['quantity'] %}
+            <tr>
+              <td>{{ i['name'] }}</td>
+              <td>{{ i['price'] }}</td>
+              <td>{{ i['quantity'] }}</td>
+              <td>{{ subtotal }}</td>
+              <td><a href="{{ url_for('main.shopping_basket.remove_from_basket', item_id=i['id']) }}">Remove</a></td>
+            </tr>
+          {% endfor %}
+          <tr>
+            <td colspan="3"></td>
+            <td><strong>Total:</strong></td>
+            <td>{{ total }}</td>
+          </tr>
+        </tbody>
+       </table>
+       <form method="post">
+          {{ form.csrf_token }}
+          <button type="submit" class="btn btn-primary">Pay</button>
+       </form>
+      {% endif %}
+    </div>
+{% endblock %}

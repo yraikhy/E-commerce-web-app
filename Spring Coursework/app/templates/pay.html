@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block title %}Shopping Basket{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1>Payment</h1>
+        <div id="error"></div>
+        <form id="form" method="post">
+            {{ form.hidden_tag() }}
+            <div id="nameField">
+                 {{ wtf.form_field(form.full_name, data_help="Enter your full name") }}
+            </div>
+            <div id="cardField"> 
+                {{ wtf.form_field(form.card_num, data_help="Enter your 16 digits for card number.") }}
+            </div>
+            <div id="cvcField">
+                 {{ wtf.form_field(form.cvc_num, data_help="Add your 3-digit cvc number on the back of your card") }}
+            </div>
+            <div id="submit"> 
+                {{ wtf.form_field(form.pay) }}
+            </div>
+        </form>
+    </div>
+
+    <script>
+    const inputFields = document.querySelectorAll('#form input');
+
+    inputFields.forEach(input => {
+        input.addEventListener('mouseover', showHelpMessage);
+        input.addEventListener('mouseleave', hideHelpMessage);
+        input.addEventListener('focus', showHelpMessage);
+        input.addEventListener('blur', hideHelpMessage);
+    });
+
+    function showHelpMessage(event) {
+
+        const helpMessage = event.target.getAttribute('data-help');
+
+        const helpDiv = document.createElement('div');
+        helpDiv.innerHTML = helpMessage;
+        helpDiv.classList.add('help-message');
+
+        const inputRect = event.target.getBoundingClientRect();
+        helpDiv.style.position = 'absolute';
+        helpDiv.style.top = inputRect.bottom + 'px';
+        helpDiv.style.left = inputRect.left + 'px';
+
+        document.body.appendChild(helpDiv);
+    }
+
+    function hideHelpMessage(event) {
+        const helpDiv = document.querySelector('.help-message');
+        if (helpDiv) {
+            document.body.removeChild(helpDiv);
+        }
+    }
+    </script>
+
+    <style>
+        .help-message {
+            position: absolute;
+            background-color: #fff;
+            color: #000;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            padding: 5px;
+            font-size: 14px;
+            line-height: 1.4;
+            max-width: 300px;
+            z-index: 9999;
+        }
+    </style>   
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends "bootstrap/base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}Yuv's Goods For Sale Shop{% endblock %}
+
+{% block navbar %}
+    <nav class="navbar navbar-inverse" role="navigation">
+        <div class="container">
+            <a class="navbar-brand" href="{{ url_for('main.index') }}"><img src="{{ url_for('static', filename='images/logo.png') }}" height="130" width = "200"></a>
+            <ul class="nav navbar-nav">
+                <li><a href="{{ url_for('main.index') }}" id="navText">Home</a></li>
+            </ul>>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="{{ url_for('main.shopping_basket.view_basket') }}" id="navText">Basket</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        {% block page_content %}{% endblock %}
+    </div>
+{% endblock %}
+
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/main.css') }}">
+{% endblock %}
